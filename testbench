@@ -1,0 +1,60 @@
+module tb_lift_fsm;
+
+  // Inputs
+  reg clk, rst;
+  reg req0, req1, req2;
+
+  // Outputs
+  wire [1:0] current_floor;
+  wire moving;
+  wire door_open;
+
+  // Instantiate the design
+  lift_fsm uut (
+    .clk(clk),
+    .rst(rst),
+    .req0(req0),
+    .req1(req1),
+    .req2(req2),
+    .current_floor(current_floor),
+    .moving(moving),
+    .door_open(door_open)
+  );
+
+  // Clock generation
+  always #5 clk = ~clk;
+
+  initial begin
+    // GTKWave dump
+    $dumpfile("lift_fsm.vcd");
+    $dumpvars(0, tb_lift_fsm);
+
+    $display("Time\tFloor\tMoving\tDoor\tReq0 Req1 Req2");
+    $monitor("%0t\t%0d\t%b\t%b\t%b  %b  %b", $time, current_floor, moving, door_open, req0, req1, req2);
+  end
+
+  initial begin
+    // Initialize
+    clk = 0; rst = 1;
+    req0 = 0; req1 = 0; req2 = 0;
+    #10 rst = 0;
+
+    // Request floor 2
+    #10 req2 = 1;
+    #30 req2 = 0;
+
+    // Wait and request floor 0
+    #50 req0 = 1;
+    #30 req0 = 0;
+
+    // Now request floor 1
+    #50 req1 = 1;
+    #30 req1 = 0;
+
+    // No request
+    #50;
+
+    $finish;
+  end
+
+endmodule
