@@ -1,22 +1,18 @@
 [README_clean.md](https://github.com/user-attachments/files/23268226/README_clean.md)
-# Lift Controller using FSM
+ Lift Controller using FSM
 
 This project implements a Lift (Elevator) Control System using a Finite State Machine (FSM) in Verilog HDL.  
 The system handles lift movement between floors, door operations, and user requests using state transitions.
 
----
-
-## Overview
+ Overview
 
 A Finite State Machine (FSM) is used to model the lift’s behavior with the following states:
-- **IDLE:** Lift is stationary and waiting for a request.
-- **MOVING_UP:** Lift moves upward toward the requested floor.
-- **MOVING_DOWN:** Lift moves downward toward the requested floor.
-- **DOOR_OPEN:** Lift door opens when it reaches the requested floor.
+IDLE: Lift is stationary and waiting for a request.
+MOVING_UP: Lift moves upward toward the requested floor.
+MOVING_DOWN: Lift moves downward toward the requested floor.
+DOOR_OPEN: Lift door opens when it reaches the requested floor.
 
----
-
-## Features
+ Features
 
 - Supports multiple floors (e.g., 4 floors: 0–3)
 - Handles floor requests dynamically (up or down direction)
@@ -24,9 +20,7 @@ A Finite State Machine (FSM) is used to model the lift’s behavior with the fol
 - Displays the current floor
 - Simple and modular FSM design
 
----
-
-## FSM States
+ FSM States
 
 | State | Description |
 |--------|--------------|
@@ -35,11 +29,9 @@ A Finite State Machine (FSM) is used to model the lift’s behavior with the fol
 | `MOVING_DOWN` | Lift moves to a lower floor request |
 | `DOOR_OPEN` | Door opens when lift reaches the target floor |
 
----
+ State Transition Diagram
 
-## State Transition Diagram
-
-```text
+text
         +----------+
         |   IDLE   |<----------------------+
         +----------+                       |
@@ -51,22 +43,15 @@ A Finite State Machine (FSM) is used to model the lift’s behavior with the fol
      +--------+  +--------+  +--------+
            |           |           |
            +-----------+-----------+
-```
 
----
-
-## Technical Details
+ Technical Details
 
 - **Language:** Verilog HDL  
 - **Concepts Used:** FSM, Sequential and Combinational Logic  
 - **Simulation Tools:** ModelSim / Vivado / Quartus Prime  
 - **Target Device:** FPGA / Simulation  
 
----
-
-## File Structure
-
-```
+ File Structure
 Lift-Controller-FSM/
 │
 ├── src/
@@ -79,11 +64,8 @@ Lift-Controller-FSM/
 │   └── FSM_Diagram.png
 │
 └── README.md
-```
 
----
-
-## Working Principle
+ Working Principle
 
 1. Detects pending floor requests  
 2. Determines direction of movement  
@@ -92,11 +74,9 @@ Lift-Controller-FSM/
 5. Waits for a short duration  
 6. Closes the door and returns to IDLE  
 
----
+Example (Verilog Snippet)
 
-## Example (Verilog Snippet)
-
-```verilog
+verilog
 always @(*) begin
     case (state)
         IDLE: begin
@@ -111,24 +91,3 @@ always @(*) begin
         DOOR_OPEN: if (door_timer_done) next_state = IDLE;
     endcase
 end
-```
-
----
-
-## Future Enhancements
-
-- Add display showing floor number and direction arrows  
-- Handle multiple concurrent requests  
-- Add emergency stop and overload handling  
-- Implement on FPGA with GUI or hardware demo  
-
----
-
-## Author
-
-**Vikal Birla**  
-B.Tech in Computer Science (AI/ML)
-
----
-
-⭐ If you found this project helpful, consider giving it a star!
